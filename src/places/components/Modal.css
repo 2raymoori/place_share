@@ -1,0 +1,130 @@
+
+.modal-container{
+
+	position: absolute;
+
+	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	left:0;
+	top:0;
+	width:100%;
+    margin:0 auto;
+	height:100%;
+/*	background-color: black;*/
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+/*	opacity: 0.8;*/
+/*	border:solid 1px black;*/
+
+/*  opacity:0.8;*/
+
+  -webkit-animation-name: fadeIn; /* Fade in the background */
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+
+
+
+.map{
+	border:solid aqua 4px;
+	x-index:5;
+	background-color: white;
+/*	left:60;*/
+/*	top:30;*/
+}
+
+.modal-content{
+ -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+	color:red;
+	position:fixed;
+	/* top:200px; */
+/*	border:solid 1px whitesmoke;*/
+/*z-index: 3;*/
+	width:55%;
+/*	background-color: black;*/
+/*	opacity: 1 !important;*/
+/*	height:90vh;*/
+/*	margin:0;*/
+
+
+}
+.modal-content__header{
+	background-color:orange;
+/*	margin:0px;*/
+	padding: 2px;
+}
+.modal-content__map{
+	position: relative;
+	background-color: white;
+	font-size:3rem;
+	z-index:1;
+	text-align: center;
+/*	background-color:black;*/
+	height: 50vh;
+	align-items: center;
+	justify-content: center;
+	display:flex;
+	opacity: 1;
+	margin:0px;
+	padding: 2px;
+}
+
+.modal-content__footer{
+	display: flex;
+	justify-content: flex-end;
+	border-top-width: 1px;
+	border-top-color: black;
+	border-top-style: solid;
+/*	margin:1px;*/
+	padding: 2px;
+	padding-top:12px;
+	background-color:white;
+}
+
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+  from {top: 0; opacity: 0}
+  to {top: 200px; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {top: 0; opacity: 0}
+  to {top: 200px; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+/*
+
+ <LoadScript
+       googleMapsApiKey='AIzaSyA-8__oYyr1tCei0lvxmmqycrHDAAdltT0'>
+        <GoogleMap
+
+          mapContainerStyle={mapStyles}
+          zoom={15}
+          center={defaultCenter}
+
+        >
+        <Marker
+      icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+      position={defaultCenter}
+    />
+        </GoogleMap >
+     </LoadScript>
+*/
