@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./PlaceList.css";
 
 import PlaceItem from "./PlaceItem";
 import DeleteModal from "./DeleteModal";
 import Modal from "./Modal";
 import Card from "../../shared/components/UIElements/Card";
+import Button from "../../shared/components/FormElements/Button";
+import { AuthContext } from "../../shared/context/auth-context";
 const PlaceList = (props) => {
   const [showHide, setShowHide] = useState(true);
   const [modalState, setModalState] = useState(1);
   const [modalFlag, setModalFlag] = useState(false);
   const [coordinate, setCoordinate] = useState(false);
+
+  const authContext = useContext(AuthContext);
 
   const showHideModal = (inputCordinate, mState) => {
     setModalFlag(!modalFlag);
@@ -23,9 +27,14 @@ const PlaceList = (props) => {
       <div>
         {props.items.length === 0 ? (
           <div className="place-list center">
-            <Card>
-              <h2>No places Found. Maybe create one?</h2>
-              <button>Share Place</button>
+            <Card className="noPlaceContainer">
+              <h2>
+                Sorry No places Found Yet.{" "}
+                {authContext.isLoggedIn && "Maybe create one?"}
+              </h2>
+              {authContext.isLoggedIn && (
+                <Button to="/places/new">Share A Place</Button>
+              )}
             </Card>
           </div>
         ) : (
@@ -34,8 +43,8 @@ const PlaceList = (props) => {
               {props.items.map((place) => (
                 <PlaceItem
                   onPlaceClick={showHideModal}
-                  key={place.id}
-                  id={place.id}
+                  key={place._id}
+                  id={place._id}
                   image={place.image}
                   title={place.title}
                   description={place.description}

@@ -1,0 +1,21 @@
+.alertContainer{
+    margin:0 auto;
+    width:50%;
+}
+.danger,.success{
+padding:0.5rem;
+font-size:1.5rem;
+font-weight: bold;
+text-align: center;
+text-transform: capitalize;
+border-radius: 2rem;
+  box-shadow: 1px 5px 10px 5px #888888;
+  margin-bottom:1rem;
+}
+.danger{
+    background-color:red;
+    color:white
+}
+.success{
+    background-color:aquamarine;
+}
