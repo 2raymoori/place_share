@@ -1,40 +1,65 @@
-import React,{useState} from 'react';
-import './Modal.css';
-import Button from '../../shared/components/FormElements/Button';
+import React, { useState } from "react";
+import "./Modal.css";
+import Button from "../../shared/components/FormElements/Button";
+import { connect } from "react-redux";
+import { deletePlace } from "../../Redux/Action/Place.action";
 // import { MapContainer, TileLayer, useMap } from 'react-leaflet'
-const DeleteModal = (props)=>{
-  const [flag,setFlag] = useState(0);
-  const mapStyles = {        
+const DeleteModal = (props) => {
+  const [flag, setFlag] = useState(0);
+  const mapStyles = {
     height: "100%",
-    width: "100%"};
-  
-  // const defaultCenter = 
+    width: "100%",
+  };
 
-  if(props.showModal){
-    return(
-    <div className="modal-container">
-    <div className="modal-content">
-      <div className="modal-content__header">
-      <h2>Confirm Delete</h2>
+  // const defaultCenter =
+
+  if (props.showModal) {
+    return (
+      <div className="modal-container">
+        <div className="modal-content">
+          <div className="modal-content__header">
+            <h2>Confirm Delete</h2>
+          </div>
+          <div className="modal-content__map">
+            <p>
+              Do you want to proceed and delete this place? Please note tht it
+              can't be undone thereafter.
+            </p>
+          </div>
+          <div className="modal-content__footer">
+            <Button
+              onClick={() => {
+                props.onShowHideModal(!props.showModal);
+              }}
+              danger
+            >
+              CANCEL
+            </Button>
+            <Button
+              onClick={() => {
+                props.deletePlace(props.placeToDelete);
+                props.onShowHideModal(!props.showModal, 1);
+              }}
+              danger
+            >
+              DELETE
+            </Button>
+          </div>
+        </div>
       </div>
-      <div className="modal-content__map">
-        <p>
-          Do you want to proceed and delete this place? 
-          Please note tht it can't be undone thereafter.
-        </p>
-      </div>
-      <div className="modal-content__footer">
-      <Button onClick={()=>{props.onShowHideModal(!props.showModal)}} danger>CANCEL</Button>
-      <Button onClick={()=>{props.onShowHideModal(!props.showModal,1)}} danger>DELETE</Button>
-      </div>
-    </div>
-    </div>
-  )
-  }else{
-    return (<></>)
+    );
+  } else {
+    return <></>;
   }
-}
-export default DeleteModal;
+};
+const mapDispatcherToProps = (dispatcher) => {
+  return {
+    deletePlace: (pId) => {
+      dispatcher(deletePlace(pId));
+    },
+  };
+};
+export default connect(null, mapDispatcherToProps)(DeleteModal);
 
 // <!-- The Modal -->
 // <div id="myModal" class="modal">

@@ -3,6 +3,7 @@ import "./PlaceItem.css";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
 import { AuthContext } from "../../shared/context/auth-context";
+import { connect } from "react-redux";
 const PlaceItem = (props) => {
   const authContext = useContext(AuthContext);
   return (
@@ -23,32 +24,37 @@ const PlaceItem = (props) => {
           <Button
             onClick={() => {
               props.onPlaceClick(props.coordinates, 1);
-              // showHideModal(!modalFlag);  // taken care of
-              // setModalState(1);
             }}
             inverse
           >
             VIEW ON MAP
           </Button>
-          {authContext.isLoggedIn && (
-            <Button to={`/places/edit/${props.id}`}>EDIT </Button>
-          )}
+          {authContext.isLoggedIn &&
+            props.userState.curUser._id === props.userId && (
+              <Button to={`/places/edit/${props.id}`}>EDIT </Button>
+            )}
 
-          {authContext.isLoggedIn && (
-            <Button
-              onClick={() => {
-                props.onPlaceClick(props.coordinates, 0);
-                // showHideModal(!modalFlag);
-                // setModalState(0);
-              }}
-              danger
-            >
-              DELETE
-            </Button>
-          )}
+          {authContext.isLoggedIn &&
+            props.userState.curUser._id === props.userId && (
+              <Button
+                onClick={() => {
+                  props.onPlaceClick(props.coordinates, 0, props.id);
+                }}
+                danger
+              >
+                DELETE
+              </Button>
+            )}
         </div>
       </Card>
     </li>
   );
 };
-export default PlaceItem;
+const mapPropsToState = (state) => {
+  return {
+    userState: state.userReducer,
+  };
+};
+export default connect(mapPropsToState, null)(PlaceItem);
+
+//63ee7405cb2008c338c74e95

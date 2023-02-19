@@ -9,14 +9,13 @@ const UserPlaces = (props) => {
     });
   };
   const userId = useParams().userId;
-  // const loaded = DUMMY_PLACES.filter((place) => place.creator === userId);
   const loaded = props.placeState.placeList.filter((e) => {
     return e.user === userId;
   });
   return (
     <>
       {props.placeState.length}
-      <PlaceList items={loaded} />
+      <PlaceList userId={userId} items={loaded} />
     </>
   );
 };
@@ -27,15 +26,3 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, null)(UserPlaces);
-
-// <GoogleMap
-//           mapContainerStyle={mapStyles}
-//           zoom={17}
-//           center={props.location}
-
-//         >
-//         <Marker
-//       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-//       position={props.location}
-//     />
-// </GoogleMap >

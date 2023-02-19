@@ -9,6 +9,10 @@
   margin-right: 2rem;
   cursor: pointer;
 }
+h3 span{
+  color:white;
+  font-style: italic;
+}
 
 .main-navigation__menu-btn span {
   display: block;

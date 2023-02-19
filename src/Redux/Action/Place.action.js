@@ -1,6 +1,11 @@
 import axios from "axios";
 import { addAlert } from "./Alert.action";
-const { LOAD_PLACES, ADD_PLACE } = require("../ActionTypes");
+const {
+  LOAD_PLACES,
+  ADD_PLACE,
+  MODIFY_PLACE,
+  DELETE_PLACE,
+} = require("../ActionTypes");
 
 export const fetchPlaces = () => async (dispatch) => {
   try {
@@ -35,14 +40,34 @@ export const modifyPlace = (data) => async (dispatch) => {
     if (res.status === 201) {
       dispatch(addAlert(res.data.msg, "danger"));
     } else {
-      // dispatch({
-      //   type: ADD_PLACE,
-      //   payload: res.data.msg,
-      // });
+      dispatch({
+        type: MODIFY_PLACE,
+        payload: res.data.msg,
+      });
+      // console.log(res.data.msg);
       dispatch(addAlert("Place Successfully Updated", "success"));
     }
   } catch (err) {
     dispatch(addAlert(res.data.msg, "danger"));
+  }
+};
+export const deletePlace = (placeId) => async (dispatcher) => {
+  try {
+    const res = await axios.delete(
+      `http://127.0.0.1:5000/api/places/${placeId}`
+    );
+    if (res.status === 201) {
+      dispatcher(addAlert("Sorry error occured. Place not deleted", "danger"));
+    } else {
+      dispatcher({
+        type: DELETE_PLACE,
+        payload: res.data.msg,
+      });
+      dispatcher(addAlert("Place Successfully Deleted", "success"));
+    }
+  } catch (error) {
+    dispatcher(addAlert("Sorry error occured. Place not deleted", "danger"));
+    console.log("Error occured in error DElete...");
   }
 };
 

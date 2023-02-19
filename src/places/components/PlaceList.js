@@ -12,14 +12,16 @@ const PlaceList = (props) => {
   const [modalState, setModalState] = useState(1);
   const [modalFlag, setModalFlag] = useState(false);
   const [coordinate, setCoordinate] = useState(false);
+  const [placeToDelete, setPlaceToDelete] = useState("");
 
   const authContext = useContext(AuthContext);
 
-  const showHideModal = (inputCordinate, mState) => {
+  const showHideModal = (inputCordinate, mState, placeId = "nil") => {
     setModalFlag(!modalFlag);
     setModalState(mState);
     setShowHide(!showHide);
     setCoordinate(inputCordinate);
+    setPlaceToDelete(placeId);
   };
 
   if (showHide) {
@@ -44,6 +46,7 @@ const PlaceList = (props) => {
                 <PlaceItem
                   onPlaceClick={showHideModal}
                   key={place._id}
+                  userId={props.userId}
                   id={place._id}
                   image={place.image}
                   title={place.title}
@@ -69,7 +72,11 @@ const PlaceList = (props) => {
       );
     } else {
       return (
-        <DeleteModal onShowHideModal={showHideModal} showModal={modalFlag} />
+        <DeleteModal
+          placeToDelete={placeToDelete}
+          onShowHideModal={showHideModal}
+          showModal={modalFlag}
+        />
       );
     }
   }
