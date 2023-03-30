@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ADD_USER, LOG_USERIN, LOAD_USERS, LOG_USEROUT } from "../ActionTypes";
-import { addAlert } from "./Alert.action";
+import { addAlert } from "./Alert.action"
+const URL_PREFIX = "https://place-share-m6dg.onrender.com/";
 
 const addUser = (userDetails) => {
   return {
@@ -17,7 +18,7 @@ const signIn = (userDetails) => {
 export const fetchUsers = () => async (dispatch) => {
   try {
     console.log("FETCHING USERS..");
-    const res = await axios.get("http://127.0.0.1:5000/api/users");
+    const res = await axios.get(`${URL_PREFIX}api/users`);
     console.log(res.data);
     dispatch({
       type: LOAD_USERS,
@@ -42,7 +43,7 @@ export const signupUser = (userDetail) => async (dispatch) => {
         formBody.append("image", userDetail.profileImage);
       }
       res = await axios.put(
-        "http://localhost:5000/api/users/signup",
+        `${URL_PREFIX}api/users/signup`,
         formBody,
         {
           headers: {
@@ -69,7 +70,7 @@ export const signupUser = (userDetail) => async (dispatch) => {
   } catch (error) {
     dispatch(
       addAlert(
-        "@@@Sorry There exists an error with your data. Please all fields are required.",
+        "Sorry There exists an error with your data. Please all fields are required.",
         "danger"
       )
     );
@@ -96,7 +97,7 @@ export const logUserIn = (userDetail) => async (dispatch) => {
         },
       };
       const res = await axios.post(
-        "http://localhost:5000/api/users/login",
+        `${URL_PREFIX}api/users/login`,
         body,
         {
           headers: {

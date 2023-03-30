@@ -1,5 +1,6 @@
 import axios from "axios";
 import { addAlert } from "./Alert.action";
+const URL_PREFIX = "https://place-share-m6dg.onrender.com/";
 const {
   LOAD_PLACES,
   ADD_PLACE,
@@ -10,7 +11,7 @@ const {
 export const fetchPlaces = () => async (dispatch) => {
   try {
     console.log("Fetching places...");
-    const res = await axios.get("http://127.0.0.1:5000/api/places");
+    const res = await axios.get(`${URL_PREFIX}api/places`);
     console.log(res.data);
     dispatch({
       type: LOAD_PLACES,
@@ -23,7 +24,7 @@ export const modifyPlace = (data) => async (dispatch) => {
   let res = null;
   try {
     const { description, title, address, placeImage, placeId } = data;
-    const url = `http://127.0.0.1:5000/api/places/${placeId}`;
+    const url = `${URL_PREFIX}api/places/${placeId}`;
     const formBody = new FormData();
     formBody.append("description", description);
     formBody.append("title", title);
@@ -54,7 +55,7 @@ export const modifyPlace = (data) => async (dispatch) => {
 export const deletePlace = (placeId) => async (dispatcher) => {
   try {
     const res = await axios.delete(
-      `http://127.0.0.1:5000/api/places/${placeId}`
+      `${URL_PREFIX}api/places/${placeId}`
     );
     if (res.status === 201) {
       dispatcher(addAlert("Sorry error occured. Place not deleted", "danger"));
@@ -75,7 +76,7 @@ export const addPlace = (data) => async (dispatch) => {
   let res = null;
   try {
     const { description, title, address, placeImage, creator } = data;
-    const url = "http://127.0.0.1:5000/api/places";
+    const url = `${URL_PREFIX}api/places`;
     const formBody = new FormData();
     formBody.append("description", description);
     formBody.append("title", title);

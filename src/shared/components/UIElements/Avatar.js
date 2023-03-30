@@ -10,7 +10,7 @@ const Avatar = (props) => {
           src={
             props.image === "avatar"
               ? "profile_img.png"
-              : `http://127.0.0.1:5000/images/usersPhoto/${props.image}`
+              : `https://place-share-m6dg.onrender.com/images/usersPhoto/${props.image}`
           }
           alt={props.alt}
           style={{ width: props.width, height: props.width }}
